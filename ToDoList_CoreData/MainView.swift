@@ -11,7 +11,9 @@ struct MainView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                
+                List {
+                    Text("test commit from macbook")
+                }
             }
             .navigationTitle("ToDoList")
         }
