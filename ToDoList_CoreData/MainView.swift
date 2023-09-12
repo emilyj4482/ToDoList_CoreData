@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct MainView: View {
+    
+    @EnvironmentObject var vm: TodoViewModel
+    
     var body: some View {
         NavigationStack {
             VStack {
