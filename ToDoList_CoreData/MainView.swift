@@ -12,7 +12,7 @@ struct MainView: View {
         NavigationStack {
             VStack {
                 List {
-                    Text("test commit from macbook")
+                    Text("test commit from mac mini")
                 }
             }
             .navigationTitle("ToDoList")
