@@ -21,7 +21,7 @@ class CoreDataManager {
             if let error = error {
                 print("ERROR LOADING CORE DATA >>> \(error)")
             } else {
-                print("CORE DATA LOADED SUCCESSFULLY!")
+                // print("CORE DATA LOADED SUCCESSFULLY!")
             }
         }
         context = container.viewContext
@@ -30,7 +30,7 @@ class CoreDataManager {
     func saveData() {
         do {
             try context.save()
-            print("SAVED SUCCESSFULLY!")
+            // print("SAVED SUCCESSFULLY!")
         } catch let error {
             print("ERROR SAVING CORE DATA >>> \(error.localizedDescription)")
         }
