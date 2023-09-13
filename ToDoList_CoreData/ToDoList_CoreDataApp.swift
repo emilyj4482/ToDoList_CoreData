@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct ToDoList_CoreDataApp: App {
     
-    @StateObject var vm: TodoViewModel = TodoViewModel()
+    @StateObject var vm: GroupViewModel = GroupViewModel()
     
     var body: some Scene {
         WindowGroup {

@@ -10,7 +10,7 @@ import CoreData
 
 struct TodoListView: View {
     
-    @EnvironmentObject var vm: TodoViewModel
+    @EnvironmentObject var vm: GroupViewModel
     
     @State var group: Group
     

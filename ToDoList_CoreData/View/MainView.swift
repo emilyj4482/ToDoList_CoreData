@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     
-    @EnvironmentObject var vm: TodoViewModel
+    @EnvironmentObject var vm: GroupViewModel
     
     @State private var showAddView: Bool = false
     

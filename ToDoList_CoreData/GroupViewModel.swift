@@ -1,5 +1,5 @@
 //
-//  TodoViewModel.swift
+//  GroupViewModel.swift
 //  ToDoList_CoreData
 //
 //  Created by EMILY on 2023/09/12.
@@ -8,24 +8,23 @@
 import SwiftUI
 import CoreData
 
-class TodoViewModel: ObservableObject {
+class GroupViewModel: ObservableObject {
     
     let cm = CoreDataManager.instance
     
     @Published var groups: [Group] = []
-    @Published var tasks: [Task] = []
     
     init() {
         getGroups()
     }
     
-    func getGroups() {
+    private func getGroups() {
         let request = NSFetchRequest<Group>(entityName: "Group")
         
         do {
             groups = try cm.context.fetch(request)
         } catch let error {
-            print("ERROR FETCHING >>> \(error)")
+            print("ERROR FETCHING GROUPS >>> \(error)")
         }
     }
     
@@ -34,7 +33,6 @@ class TodoViewModel: ObservableObject {
         newGroup.id = UUID()
         newGroup.name = name
         save()
-        print(groups)
     }
     
     func deleteGroup(_ item: Group) {
