@@ -24,23 +24,25 @@ struct MainView: View {
             VStack {
                 List {
                     ForEach(vm.groups) { group in
-                        HStack {
-                            Image(systemName: "checklist.checked")
-                            Text(group.name ?? "N/A")
-                            Spacer()
-                            Text("0")
-                                .font(.system(size: 10))
-                                .foregroundColor(.gray)
-                        }
-                        .padding([.top, .bottom], 5)
-                        .swipeActions(allowsFullSwipe: false) {
-                            Button {
-                                itemToDelete = group
-                                showActionSheet = true
-                            } label: {
-                                Image(systemName: "trash")
+                        NavigationLink(value: group) {
+                            HStack {
+                                Image(systemName: "checklist.checked")
+                                Text(group.name ?? "N/A")
+                                Spacer()
+                                Text("0")
+                                    .font(.system(size: 10))
+                                    .foregroundColor(.gray)
                             }
-                            .tint(.red)
+                            .padding([.top, .bottom], 5)
+                            .swipeActions(allowsFullSwipe: false) {
+                                Button {
+                                    itemToDelete = group
+                                    showActionSheet = true
+                                } label: {
+                                    Image(systemName: "trash")
+                                }
+                                .tint(.red)
+                            }
                         }
                     }
                 }
@@ -55,8 +57,6 @@ struct MainView: View {
                     
                     Button("Cancel", role: .cancel) {}
                 }
-                
-                Spacer()
                 
                 Text("You have 0 custom list.")
                     .font(.system(size: 13))
@@ -82,12 +82,9 @@ struct MainView: View {
                     AddNewListView()
                 }
             }
+            .navigationDestination(for: Group.self) { group in
+                TodoListView(group: group)
+            }
         }
-    }
-}
-
-struct MainView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainView()
     }
 }

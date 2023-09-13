@@ -17,7 +17,6 @@ class TodoViewModel: ObservableObject {
     
     init() {
         getGroups()
-        print(groups)
     }
     
     func getGroups() {
@@ -32,6 +31,7 @@ class TodoViewModel: ObservableObject {
     
     func addGroup(_ name: String) {
         let newGroup = Group(context: cm.context)
+        newGroup.id = UUID()
         newGroup.name = name
         save()
         print(groups)
@@ -39,6 +39,11 @@ class TodoViewModel: ObservableObject {
     
     func deleteGroup(_ item: Group) {
         cm.context.delete(item)
+        save()
+    }
+    
+    func updateGroup(_ item: Group, name: String) {
+        item.name = name
         save()
     }
     
