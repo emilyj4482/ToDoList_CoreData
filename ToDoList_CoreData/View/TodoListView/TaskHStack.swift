@@ -21,7 +21,6 @@ struct TaskHStack: View {
                 .onTapGesture {
                     task.isDone.toggle()
                     vm.updateTask(to: group)
-                    print(task)
                 }
             Text(task.title ?? "N/A")
             Spacer()
@@ -30,7 +29,6 @@ struct TaskHStack: View {
                 .onTapGesture {
                     task.isImportant.toggle()
                     vm.updateTask(to: group)
-                    print(task)
                 }
         }
         .padding([.top, .bottom], 5)

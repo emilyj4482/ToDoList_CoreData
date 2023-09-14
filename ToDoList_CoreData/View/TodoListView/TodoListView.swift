@@ -24,12 +24,27 @@ struct TodoListView: View {
             List {
                 ForEach(tvm.tasks) { task in
                     TaskHStack(task: task, group: group)
+                        .swipeActions(allowsFullSwipe: false) {
+                            Button {
+                                tvm.deleteTask(task, from: group)
+                            } label: {
+                                Image(systemName: "trash")
+                            }
+                            .tint(.red)
+
+                            Button {
+                                
+                            } label: {
+                                Image(systemName: "pencil")
+                            }
+                            .tint(.cyan)
+                        }
                 }
             }
             .listStyle(.plain)
 
             Button {
-                
+                tvm.addTask("to study Combine", to: group)
             } label: {
                 HStack {
                     Image(systemName: "plus")

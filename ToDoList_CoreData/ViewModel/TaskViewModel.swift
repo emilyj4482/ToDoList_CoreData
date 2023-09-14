@@ -40,6 +40,11 @@ class TaskViewModel: ObservableObject {
         save(to: group)
     }
     
+    func deleteTask(_ item: Task, from group: Group) {
+        cm.context.delete(item)
+        save(to: group)
+    }
+    
     private func save(to group: Group) {
         cm.saveData()
         getTasks(for: group)
