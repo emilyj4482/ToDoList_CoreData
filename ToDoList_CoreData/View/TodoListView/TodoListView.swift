@@ -19,6 +19,11 @@ struct TodoListView: View {
     @State var showFieldAlert: Bool = false
     @State var newGroupName: String = ""
     
+    /* task create & edit */
+    @State var showCreate: Bool = false
+    @State var showEdit: Bool = false
+    @State var taskToEdit: Task?
+    
     var body: some View {
         VStack {
             List {
@@ -33,7 +38,8 @@ struct TodoListView: View {
                             .tint(.red)
 
                             Button {
-                                
+                                taskToEdit = task
+                                showEdit.toggle()
                             } label: {
                                 Image(systemName: "pencil")
                             }
@@ -44,7 +50,7 @@ struct TodoListView: View {
             .listStyle(.plain)
 
             Button {
-                tvm.addTask("to study Combine", to: group)
+                showCreate.toggle()
             } label: {
                 HStack {
                     Image(systemName: "plus")
@@ -73,6 +79,18 @@ struct TodoListView: View {
                     Button("Cancel", role: .cancel, action: {})
                 }
             }
+        }
+        .sheet(isPresented: $showCreate) {
+            NavigationStack {
+                TaskEditView(group: group, taskToEdit: $taskToEdit, isCreating: true)
+            }
+            .presentationDetents([.height(50)])
+        }
+        .sheet(isPresented: $showEdit) {
+            NavigationStack {
+                TaskEditView(group: group, taskToEdit: $taskToEdit, isCreating: false)
+            }
+            .presentationDetents([.height(50)])
         }
         .onAppear {
             tvm.getTasks(for: group)
