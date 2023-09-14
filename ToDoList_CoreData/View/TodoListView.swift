@@ -10,7 +10,8 @@ import CoreData
 
 struct TodoListView: View {
     
-    @EnvironmentObject var vm: GroupViewModel
+    @EnvironmentObject var gvm: GroupViewModel
+    @StateObject var tvm = TaskViewModel()
     
     @State var group: Group
     
@@ -22,12 +23,15 @@ struct TodoListView: View {
         
         VStack {
             List {
-                
+                ForEach(tvm.tasks) { task in
+                    Text(task.title ?? "N/A")
+                }
             }
             .listStyle(.plain)
 
             Button {
-                
+                // test code
+                tvm.addTask("study iOS", to: group)
             } label: {
                 HStack {
                     Image(systemName: "plus")
@@ -50,7 +54,7 @@ struct TodoListView: View {
                     TextField(group.name ?? "", text: $newGroupName)
                     Button("Confirm") {
                         if !newGroupName.trim().isEmpty {
-                            vm.updateGroup(group, name: newGroupName.trim())
+                            gvm.updateGroup(group, name: newGroupName.trim())
                             // 현재 화면 navigation title에도 적용
                             group.name = newGroupName
                         }
@@ -58,6 +62,9 @@ struct TodoListView: View {
                     Button("Cancel", role: .cancel, action: {})
                 }
             }
+        }
+        .onAppear {
+            tvm.getTasks(for: group)
         }
     }
 }

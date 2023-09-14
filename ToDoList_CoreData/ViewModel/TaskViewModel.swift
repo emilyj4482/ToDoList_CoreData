@@ -13,28 +13,31 @@ class TaskViewModel: ObservableObject {
     let cm = CoreDataManager.instance
     
     @Published var tasks: [Task] = []
-    
-    init() {
-        getTasks()
-    }
-    
-    private func getTasks() {
+
+    func getTasks(for group: Group) {
         let request = NSFetchRequest<Task>(entityName: "Task")
+        
+        let filter = NSPredicate(format: "group == %@", group)
+        request.predicate = filter
+        
         do {
             tasks = try cm.context.fetch(request)
         } catch let error {
-            print("ERROR FETCHING TASKS >>> \(error)")
+            print("ERROR FETCHING TASKS FOR \(String(describing: group.name)) >>> \(error)")
         }
     }
     
-    func addTask(_ title: String) {
+    func addTask(_ title: String, to group: Group) {
         let newTask = Task(context: cm.context)
         newTask.id = UUID()
         newTask.title = title
+        newTask.group = group
+        
+        save(to: group)
     }
     
-    private func save() {
+    private func save(to group: Group) {
         cm.saveData()
-        getTasks()
+        getTasks(for: group)
     }
 }
