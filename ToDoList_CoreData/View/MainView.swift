@@ -29,7 +29,7 @@ struct MainView: View {
                                 Image(systemName: "checklist.checked")
                                 Text(group.name ?? "N/A")
                                 Spacer()
-                                Text("0")
+                                Text("\(group.tasks?.count ?? 0)")
                                     .font(.system(size: 10))
                                     .foregroundColor(.gray)
                             }

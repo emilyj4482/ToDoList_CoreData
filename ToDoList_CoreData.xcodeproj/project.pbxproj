@@ -17,6 +17,7 @@
 		A18701C82AB03A6900C92710 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18701C72AB03A6900C92710 /* CoreDataManager.swift */; };
 		A18701CA2AB03CD900C92710 /* GroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18701C92AB03CD900C92710 /* GroupViewModel.swift */; };
 		A18701CD2AB06B3800C92710 /* TodoContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A18701CB2AB06B3800C92710 /* TodoContainer.xcdatamodeld */; };
+		A1FEB2662AB2F62000134D9C /* TaskHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FEB2652AB2F62000134D9C /* TaskHStack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		A18701C72AB03A6900C92710 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		A18701C92AB03CD900C92710 /* GroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewModel.swift; sourceTree = "<group>"; };
 		A18701CC2AB06B3800C92710 /* TodoContainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TodoContainer.xcdatamodel; sourceTree = "<group>"; };
+		A1FEB2652AB2F62000134D9C /* TaskHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHStack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,7 +51,7 @@
 			children = (
 				A18701BB2AB02B0B00C92710 /* MainView.swift */,
 				A10C51AC2AB13F35000A49D0 /* AddNewListView.swift */,
-				A10C51AF2AB1C55B000A49D0 /* TodoListView.swift */,
+				A1FEB2672AB2F62B00134D9C /* TodoListView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -99,6 +101,15 @@
 				A10C51B12AB21155000A49D0 /* TaskViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		A1FEB2672AB2F62B00134D9C /* TodoListView */ = {
+			isa = PBXGroup;
+			children = (
+				A10C51AF2AB1C55B000A49D0 /* TodoListView.swift */,
+				A1FEB2652AB2F62000134D9C /* TaskHStack.swift */,
+			);
+			path = TodoListView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,6 +185,7 @@
 				A18701CA2AB03CD900C92710 /* GroupViewModel.swift in Sources */,
 				A18701C82AB03A6900C92710 /* CoreDataManager.swift in Sources */,
 				A18701BC2AB02B0B00C92710 /* MainView.swift in Sources */,
+				A1FEB2662AB2F62000134D9C /* TaskHStack.swift in Sources */,
 				A10C51AD2AB13F35000A49D0 /* AddNewListView.swift in Sources */,
 				A10C51B02AB1C55B000A49D0 /* TodoListView.swift in Sources */,
 				A10C51B22AB21155000A49D0 /* TaskViewModel.swift in Sources */,

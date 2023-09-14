@@ -36,6 +36,10 @@ class TaskViewModel: ObservableObject {
         save(to: group)
     }
     
+    func updateTask(to group: Group) {
+        save(to: group)
+    }
+    
     private func save(to group: Group) {
         cm.saveData()
         getTasks(for: group)

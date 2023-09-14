@@ -20,18 +20,16 @@ struct TodoListView: View {
     @State var newGroupName: String = ""
     
     var body: some View {
-        
         VStack {
             List {
                 ForEach(tvm.tasks) { task in
-                    Text(task.title ?? "N/A")
+                    TaskHStack(task: task, group: group)
                 }
             }
             .listStyle(.plain)
 
             Button {
-                // test code
-                tvm.addTask("study iOS", to: group)
+                
             } label: {
                 HStack {
                     Image(systemName: "plus")
@@ -55,8 +53,6 @@ struct TodoListView: View {
                     Button("Confirm") {
                         if !newGroupName.trim().isEmpty {
                             gvm.updateGroup(group, name: newGroupName.trim())
-                            // 현재 화면 navigation title에도 적용
-                            group.name = newGroupName
                         }
                     }
                     Button("Cancel", role: .cancel, action: {})
@@ -66,11 +62,5 @@ struct TodoListView: View {
         .onAppear {
             tvm.getTasks(for: group)
         }
-    }
-}
-
-struct TodoListView_Previews: PreviewProvider {
-    static var previews: some View {
-        TodoListView(group: Group(context: NSPersistentContainer(name: "TodoContainer").viewContext))
     }
 }
