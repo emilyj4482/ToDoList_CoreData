@@ -10,7 +10,7 @@ import SwiftUI
 struct TaskEditView: View {
     
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var vm = TaskViewModel()
+    @ObservedObject var vm = TaskViewModel.shared
     
     // task가 속한 group을 전달 받을 변수
     var group: Group

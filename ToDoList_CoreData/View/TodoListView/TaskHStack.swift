@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TaskHStack: View {
     
-    @ObservedObject var vm = TaskViewModel()
+    @ObservedObject var vm = TaskViewModel.shared
     
     @State var task: Task
     var group: Group

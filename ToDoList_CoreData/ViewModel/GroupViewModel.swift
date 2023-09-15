@@ -10,6 +10,7 @@ import CoreData
 
 class GroupViewModel: ObservableObject {
     
+    static let shared = GroupViewModel()
     let cm = CoreDataManager.instance
     
     @Published var groups: [Group] = []
@@ -32,7 +33,6 @@ class GroupViewModel: ObservableObject {
             }
         }
     }
-    
     
     private func getGroups() {
         let request = NSFetchRequest<Group>(entityName: "Group")

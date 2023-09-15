@@ -11,7 +11,7 @@ import CoreData
 struct TodoListView: View {
     
     @EnvironmentObject var gvm: GroupViewModel
-    @StateObject var tvm = TaskViewModel()
+    @StateObject var tvm = TaskViewModel.shared
     
     @State var group: Group
     
