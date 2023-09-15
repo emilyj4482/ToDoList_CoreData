@@ -16,7 +16,23 @@ class GroupViewModel: ObservableObject {
     
     init() {
         getGroups()
+        printGroups()
     }
+    
+    func printGroups() {
+        for group in groups {
+            guard let name = group.name else { return }
+            print("GROUP >>> \(name)")
+            guard let tasks = group.tasks else { return }
+            for task in tasks {
+                guard let todo = task as? Task else{ return }
+                print(
+                    "  Task title >> \(todo.title ?? "")\n  Task isDone >> \(todo.isDone)\n  Task isImportant >> \(todo.isImportant)\n ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ"
+                )
+            }
+        }
+    }
+    
     
     private func getGroups() {
         let request = NSFetchRequest<Group>(entityName: "Group")
