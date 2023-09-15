@@ -17,6 +17,10 @@ class GroupViewModel: ObservableObject {
     
     init() {
         getGroups()
+        // Important group default
+        if groups.isEmpty {
+            addGroup("Important")
+        }
         printGroups()
     }
     
@@ -24,13 +28,6 @@ class GroupViewModel: ObservableObject {
         for group in groups {
             guard let name = group.name else { return }
             print("GROUP >>> \(name)")
-            guard let tasks = group.tasks else { return }
-            for task in tasks {
-                guard let todo = task as? Task else{ return }
-                print(
-                    "  Task title >> \(todo.title ?? "")\n  Task isDone >> \(todo.isDone)\n  Task isImportant >> \(todo.isImportant)\n ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ"
-                )
-            }
         }
     }
     
@@ -46,7 +43,6 @@ class GroupViewModel: ObservableObject {
     
     func addGroup(_ name: String) {
         let newGroup = Group(context: cm.context)
-        newGroup.id = UUID()
         newGroup.name = name
         save()
     }

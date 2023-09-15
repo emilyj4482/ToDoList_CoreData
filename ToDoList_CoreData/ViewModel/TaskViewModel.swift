@@ -30,7 +30,6 @@ class TaskViewModel: ObservableObject {
     
     func addTask(_ title: String, to group: Group) {
         let newTask = Task(context: cm.context)
-        newTask.id = UUID()
         newTask.title = title
         newTask.group = group
         

@@ -56,9 +56,3 @@ struct AddNewListView: View {
         return listName.trim()
     }
 }
-
-struct AddNewListView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddNewListView()
-    }
-}
