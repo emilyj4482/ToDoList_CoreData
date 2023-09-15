@@ -95,5 +95,8 @@ struct TodoListView: View {
         .onAppear {
             tvm.getTasks(for: group)
         }
+        .onDisappear {
+            gvm.getGroups()
+        }
     }
 }

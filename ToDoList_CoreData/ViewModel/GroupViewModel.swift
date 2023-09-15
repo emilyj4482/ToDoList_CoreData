@@ -34,7 +34,7 @@ class GroupViewModel: ObservableObject {
         }
     }
     
-    private func getGroups() {
+    func getGroups() {
         let request = NSFetchRequest<Group>(entityName: "Group")
         
         do {
