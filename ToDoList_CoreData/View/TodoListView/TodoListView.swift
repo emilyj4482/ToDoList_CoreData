@@ -32,6 +32,8 @@ struct TodoListView: View {
                         .swipeActions(allowsFullSwipe: false) {
                             Button {
                                 tvm.deleteTask(task, from: group)
+                                // main view update를 위한 task 개수 변화 감지
+                                gvm.getGroups()
                             } label: {
                                 Image(systemName: "trash")
                             }
@@ -94,9 +96,6 @@ struct TodoListView: View {
         }
         .onAppear {
             tvm.getTasks(for: group)
-        }
-        .onDisappear {
-            gvm.getGroups()
         }
     }
 }

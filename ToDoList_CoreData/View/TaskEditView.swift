@@ -10,7 +10,8 @@ import SwiftUI
 struct TaskEditView: View {
     
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var vm = TaskViewModel.shared
+    @EnvironmentObject var gvm: GroupViewModel
+    @ObservedObject var tvm = TaskViewModel.shared
     
     // task가 속한 group을 전달 받을 변수
     var group: Group
@@ -42,12 +43,14 @@ struct TaskEditView: View {
                     showAlert = true
                 } else if isCreating && !taskTitle.trim().isEmpty {
                     // create
-                    vm.addTask(taskTitle, to: group)
+                    tvm.addTask(taskTitle, to: group)
                     dismiss()
+                    // main view update를 위한 task 개수 변화 감지
+                    gvm.getGroups()
                 } else {
                     // edit
                     taskToEdit?.title = taskTitle
-                    vm.updateTask(to: group)
+                    tvm.updateTask(to: group)
                     dismiss()
                 }
             } label: {
