@@ -1,5 +1,5 @@
 //
-//  TodoViewModel.swift
+//  GroupViewModel.swift
 //  ToDoList_CoreData
 //
 //  Created by EMILY on 2023/09/12.
@@ -8,15 +8,30 @@
 import SwiftUI
 import CoreData
 
-class TodoViewModel: ObservableObject {
+class GroupViewModel: ObservableObject {
     
+    static let shared = GroupViewModel()
     let cm = CoreDataManager.instance
     
     @Published var groups: [Group] = []
-    @Published var tasks: [Task] = []
     
     init() {
         getGroups()
+        printGroups()
+    }
+    
+    func printGroups() {
+        for group in groups {
+            guard let name = group.name else { return }
+            print("GROUP >>> \(name)")
+            guard let tasks = group.tasks else { return }
+            for task in tasks {
+                guard let todo = task as? Task else{ return }
+                print(
+                    "  Task title >> \(todo.title ?? "")\n  Task isDone >> \(todo.isDone)\n  Task isImportant >> \(todo.isImportant)\n ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ"
+                )
+            }
+        }
     }
     
     func getGroups() {
@@ -25,7 +40,7 @@ class TodoViewModel: ObservableObject {
         do {
             groups = try cm.context.fetch(request)
         } catch let error {
-            print("ERROR FETCHING >>> \(error)")
+            print("ERROR FETCHING GROUPS >>> \(error)")
         }
     }
     
@@ -34,7 +49,6 @@ class TodoViewModel: ObservableObject {
         newGroup.id = UUID()
         newGroup.name = name
         save()
-        print(groups)
     }
     
     func deleteGroup(_ item: Group) {

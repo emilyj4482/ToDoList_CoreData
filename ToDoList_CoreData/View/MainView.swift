@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     
-    @EnvironmentObject var vm: TodoViewModel
+    @EnvironmentObject var vm: GroupViewModel
     
     @State private var showAddView: Bool = false
     
@@ -29,7 +29,7 @@ struct MainView: View {
                                 Image(systemName: "checklist.checked")
                                 Text(group.name ?? "N/A")
                                 Spacer()
-                                Text("0")
+                                Text("\(group.tasks?.count ?? 0)")
                                     .font(.system(size: 10))
                                     .foregroundColor(.gray)
                             }
