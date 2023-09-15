@@ -26,7 +26,7 @@ struct MainView: View {
                     ForEach(vm.groups) { group in
                         NavigationLink(value: group) {
                             HStack {
-                                Image(systemName: "checklist.checked")
+                                Image(systemName: group.name == "Important" ? "star.fill" : "checklist.checked")
                                 Text(group.name ?? "N/A")
                                 Spacer()
                                 Text("\(group.tasks?.count ?? 0)")
@@ -35,13 +35,16 @@ struct MainView: View {
                             }
                             .padding([.top, .bottom], 5)
                             .swipeActions(allowsFullSwipe: false) {
-                                Button {
-                                    itemToDelete = group
-                                    showActionSheet = true
-                                } label: {
-                                    Image(systemName: "trash")
+                                // important list는 삭제 불가
+                                if group.name != "Important" {
+                                    Button {
+                                        itemToDelete = group
+                                        showActionSheet = true
+                                    } label: {
+                                        Image(systemName: "trash")
+                                    }
+                                    .tint(.red)
                                 }
-                                .tint(.red)
                             }
                         }
                     }

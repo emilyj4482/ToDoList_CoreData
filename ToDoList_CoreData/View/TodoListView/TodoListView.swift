@@ -38,7 +38,7 @@ struct TodoListView: View {
                                 Image(systemName: "trash")
                             }
                             .tint(.red)
-
+                            
                             Button {
                                 taskToEdit = task
                                 showEdit.toggle()
@@ -50,35 +50,41 @@ struct TodoListView: View {
                 }
             }
             .listStyle(.plain)
-
-            Button {
-                showCreate.toggle()
-            } label: {
-                HStack {
-                    Image(systemName: "plus")
-                    Text("Add a Task")
+            
+            // Important list에서는 task 추가 불가
+            if group.name != "Important" {
+                Button {
+                    showCreate.toggle()
+                } label: {
+                    HStack {
+                        Image(systemName: "plus")
+                        Text("Add a Task")
+                    }
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.leading, 15)
+                .padding(.bottom, 5)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.leading, 15)
-            .padding(.bottom, 5)
         }
         .navigationTitle(group.name ?? "N/A")
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    showFieldAlert = true
-                } label: {
-                    Text("Rename")
-                }
-                .alert("Enter a new name for the list.", isPresented: $showFieldAlert) {
-                    TextField(group.name ?? "", text: $newGroupName)
-                    Button("Confirm") {
-                        if !newGroupName.trim().isEmpty {
-                            gvm.updateGroup(group, name: newGroupName.trim())
-                        }
+            // Important list는 rename 불가
+            if group.name != "Important" {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        showFieldAlert = true
+                    } label: {
+                        Text("Rename")
                     }
-                    Button("Cancel", role: .cancel, action: {})
+                    .alert("Enter a new name for the list.", isPresented: $showFieldAlert) {
+                        TextField(group.name ?? "", text: $newGroupName)
+                        Button("Confirm") {
+                            if !newGroupName.trim().isEmpty {
+                                gvm.updateGroup(group, name: newGroupName.trim())
+                            }
+                        }
+                        Button("Cancel", role: .cancel, action: {})
+                    }
                 }
             }
         }
