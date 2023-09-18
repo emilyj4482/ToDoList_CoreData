@@ -12,6 +12,7 @@ class TaskViewModel: ObservableObject {
     
     static let shared = TaskViewModel()
     let cm = CoreDataManager.instance
+    let gvm = GroupViewModel.shared
     
     @Published var tasks: [Task] = []
 
@@ -31,10 +32,13 @@ class TaskViewModel: ObservableObject {
     func addTask(_ title: String, to group: Group) {
         let newTask = Task(context: cm.context)
         newTask.title = title
-        newTask.group = group
+        newTask.addToGroup(group)
         
         save(to: group)
     }
+    
+    // important task인 경우 Important group과 task가 속한 group 양쪽에서 update 필요
+    
     
     func updateTask(to group: Group) {
         save(to: group)
@@ -43,6 +47,18 @@ class TaskViewModel: ObservableObject {
     func deleteTask(_ item: Task, from group: Group) {
         cm.context.delete(item)
         save(to: group)
+    }
+    
+    // isImportant toggle 시 Important group에 추가/삭제 동작
+    func updateImportant(_ task: Task, to group: Group) {
+        let important = gvm.groups[0]
+        if task.isImportant {
+            task.addToGroup(important)
+        } else {
+            important.removeFromTasks(task)
+        }
+        save(to: group)
+        gvm.save()
     }
     
     private func save(to group: Group) {

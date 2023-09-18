@@ -57,7 +57,7 @@ class GroupViewModel: ObservableObject {
         save()
     }
     
-    private func save() {
+    func save() {
         cm.saveData()
         getGroups()
     }
