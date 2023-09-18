@@ -19,7 +19,7 @@ class TaskViewModel: ObservableObject {
     func getTasks(for group: Group) {
         let request = NSFetchRequest<Task>(entityName: "Task")
         
-        let filter = NSPredicate(format: "group == %@", group)
+        let filter = NSPredicate(format: "ANY group == %@", group)
         request.predicate = filter
         
         do {
@@ -36,9 +36,6 @@ class TaskViewModel: ObservableObject {
         
         save(to: group)
     }
-    
-    // important task인 경우 Important group과 task가 속한 group 양쪽에서 update 필요
-    
     
     func updateTask(to group: Group) {
         save(to: group)
