@@ -12,8 +12,12 @@ struct AddNewListView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var vm: GroupViewModel
     
+    /* textfield */
     @State var listName: String = ""
     @FocusState var focused: Bool
+    
+    // 입력값 Important일 때 alert 호출
+    @State var showAlert: Bool = false
     
     var body: some View {
         VStack {
@@ -35,11 +39,17 @@ struct AddNewListView: View {
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    vm.addGroup(getListName(listName))
-                    dismiss()
+                    // "Important" list name 금지
+                    if getListName(listName) == "Important" {
+                        showAlert = true
+                    } else {
+                        vm.addGroup(getListName(listName))
+                        dismiss()
+                    }
                 } label: {
                     Text("Done")
                 }
+                .alert("You cannot name a list \"Important\"", isPresented: $showAlert) {}
             }
         }
         // 화면이 뜨자마자 텍스트필드 입력 모드

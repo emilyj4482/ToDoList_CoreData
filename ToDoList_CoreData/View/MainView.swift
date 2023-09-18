@@ -61,7 +61,9 @@ struct MainView: View {
                     Button("Cancel", role: .cancel) {}
                 }
                 
-                Text("You have 0 custom list.")
+                Text(
+                    vm.groups.count < 3 ? "You have \(vm.groups.count - 1) custom list." : "You have \(vm.groups.count - 1) custom lists."
+                )
                     .font(.system(size: 13))
                     .foregroundColor(.mint)
                     .frame(maxWidth: .infinity, alignment: .leading)
