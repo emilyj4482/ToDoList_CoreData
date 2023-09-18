@@ -28,7 +28,7 @@ struct TaskHStack: View {
                 .foregroundColor(.yellow)
                 .onTapGesture {
                     task.isImportant.toggle()
-                    vm.updateTask(to: group)
+                    vm.updateImportant(task, to: group)
                 }
         }
         .padding([.top, .bottom], 5)
