@@ -27,6 +27,7 @@ struct TodoListView: View {
     var body: some View {
         VStack {
             List {
+                /*
                 ForEach(tvm.tasks) { task in
                     TaskHStack(task: task, group: group)
                         .swipeActions(allowsFullSwipe: false) {
@@ -47,6 +48,54 @@ struct TodoListView: View {
                             }
                             .tint(.cyan)
                         }
+                }
+                */
+                Section {
+                    ForEach(tvm.undoneTasks) { task in
+                        TaskHStack(task: task, group: group)
+                            .swipeActions(allowsFullSwipe: false) {
+                                Button {
+                                    tvm.deleteTask(task, from: group)
+                                    // main view update를 위한 task 개수 변화 감지
+                                    gvm.getGroups()
+                                } label: {
+                                    Image(systemName: "trash")
+                                }
+                                .tint(.red)
+                                
+                                Button {
+                                    taskToEdit = task
+                                    showEdit.toggle()
+                                } label: {
+                                    Image(systemName: "pencil")
+                                }
+                                .tint(.cyan)
+                            }
+                    }
+                }
+                
+                Section(tvm.doneTasks.count == 0 ? "" : "tasks done!") {
+                    ForEach(tvm.doneTasks) { task in
+                        TaskHStack(task: task, group: group)
+                            .swipeActions(allowsFullSwipe: false) {
+                                Button {
+                                    tvm.deleteTask(task, from: group)
+                                    // main view update를 위한 task 개수 변화 감지
+                                    gvm.getGroups()
+                                } label: {
+                                    Image(systemName: "trash")
+                                }
+                                .tint(.red)
+                                
+                                Button {
+                                    taskToEdit = task
+                                    showEdit.toggle()
+                                } label: {
+                                    Image(systemName: "pencil")
+                                }
+                                .tint(.cyan)
+                            }
+                    }
                 }
             }
             .listStyle(.plain)
@@ -102,6 +151,7 @@ struct TodoListView: View {
         }
         .onAppear {
             tvm.getTasks(for: group)
+            tvm.reloadSection()
         }
     }
 }

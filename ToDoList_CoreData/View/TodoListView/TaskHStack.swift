@@ -21,6 +21,7 @@ struct TaskHStack: View {
                 .onTapGesture {
                     task.isDone.toggle()
                     vm.updateTask(to: group)
+                    vm.reloadSection()
                 }
             Text(task.title ?? "N/A")
             Spacer()
