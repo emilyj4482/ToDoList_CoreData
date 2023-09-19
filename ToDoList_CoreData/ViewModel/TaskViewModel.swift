@@ -15,6 +15,10 @@ class TaskViewModel: ObservableObject {
     let gvm = GroupViewModel.shared
     
     @Published var tasks: [Task] = []
+    
+    // isDone 여부에 따른 section 분리
+    @Published var undoneTasks: [Task] = []
+    @Published var doneTasks: [Task] = []
 
     func getTasks(for group: Group) {
         let request = NSFetchRequest<Task>(entityName: "Task")
@@ -33,8 +37,8 @@ class TaskViewModel: ObservableObject {
         let newTask = Task(context: cm.context)
         newTask.title = title
         newTask.addToGroup(group)
-        
         save(to: group)
+        reloadSection()
     }
     
     func updateTask(to group: Group) {
@@ -44,6 +48,7 @@ class TaskViewModel: ObservableObject {
     func deleteTask(_ item: Task, from group: Group) {
         cm.context.delete(item)
         save(to: group)
+        reloadSection()
     }
     
     // isImportant toggle 시 Important group에 추가/삭제 동작
@@ -56,6 +61,13 @@ class TaskViewModel: ObservableObject {
         }
         save(to: group)
         gvm.save()
+        reloadSection()
+    }
+    
+    // isDone 여부에 따른 section 분리
+    func reloadSection() {
+        undoneTasks = tasks.filter({ $0.isDone == false })
+        doneTasks = tasks.filter({ $0.isDone == true })
     }
     
     private func save(to group: Group) {
