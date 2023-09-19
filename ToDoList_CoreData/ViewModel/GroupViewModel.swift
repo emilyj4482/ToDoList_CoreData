@@ -21,14 +21,6 @@ class GroupViewModel: ObservableObject {
         if groups.isEmpty {
             addGroup("Important")
         }
-        printGroups()
-    }
-    
-    func printGroups() {
-        for group in groups {
-            guard let name = group.name else { return }
-            print("GROUP >>> \(name)")
-        }
     }
     
     func getGroups() {

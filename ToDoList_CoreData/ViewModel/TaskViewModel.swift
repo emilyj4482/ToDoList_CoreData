@@ -73,13 +73,5 @@ class TaskViewModel: ObservableObject {
     private func save(to group: Group) {
         cm.saveData()
         getTasks(for: group)
-        printTasks()
-    }
-    
-    func printTasks() {
-        for task in tasks {
-            guard let title = task.title else { return }
-            print("TASK >>> \(title)\n   Task isDone >> \(task.isDone)\n   Task isImportant >> \(task.isImportant)\n ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ")
-        }
     }
 }
